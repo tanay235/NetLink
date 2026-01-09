@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import { file, ref } from "pdfkit";
-import { use } from "react";
 
 const PostSchema = new mongoose.Schema({
     userId: {

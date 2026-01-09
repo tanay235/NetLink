@@ -1,6 +1,4 @@
-import e from "express";
 import mongoose, { Schema } from "mongoose";
-import { use } from "react";
 
 const UserSchema = new mongoose.Schema({
     name : {
@@ -33,8 +31,8 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    tokens: {
-        type: string,
+    token: {
+        type: String,
         default: ''
     }
 });
