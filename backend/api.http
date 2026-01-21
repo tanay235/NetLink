@@ -2,10 +2,10 @@ POST http://localhost:9080/register HTTP/1.1
 content-type: application/json
 
 {
-  "username": "tanay123",
-  "password": "123456",
-  "email": "tanay@gmail.com",
-  "name": "Tanay Mittal"
+  "username": "rajat123",
+  "password": "123",
+  "email": "rajat@gmail.com",
+  "name": "Rajat Jain"
 }
 
 ###
@@ -19,4 +19,44 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:9080/get_user_and_profile?token=ebe4c815246bd4254a6d563e9827608e00711da8b87854d6cf1494c582748cf9941681dc5b5c5999af6bb903025009953f60d74a716ffb6672d68607159f8157 HTTP/1.1
+
+POST http://localhost:9080/login HTTP/1.1
+content-type: application/json 
+
+{
+  "email": "rajat@gmail.com",
+  "password": "123"
+}
+
+
+###
+GET http://localhost:9080/get_user_and_profile?token=2a103214e4491e4728dd0f6e7270ee94e740a2d8f407a540e654133a10b0c41bdc562badc6f092e973d32e597e134aff23d89660ea72a19484e4dce5d09cf2f1 HTTP/1.1
+
+###
+POST http://localhost:9080/update_profile_data
+Content-Type: application/json
+
+{
+  "token": "d25798afa1e9f14357ce4a017bf7824bcf362c654f9841005b6ecdc776b1c4a9aad37851d9228aa4b05b47c2ef526ba65e76083f6c4a21c03d8022ec204b9818",
+  "bio": "",
+  "currentPost": "CTO",
+  "pastWork": [
+    {
+      "company": "Microsoft",
+      "position": "CTO",
+      "years": "2+"
+    }
+  ],
+  "education": [
+    {
+      "school": "IIT",
+      "degree": "B.Tech",
+      "fieldOfStudy": "2015-2019"
+    }
+  ]
+}
+
+
+###
+
+GET http://localhost:9080/user/get_all_users HTTP/1.1
