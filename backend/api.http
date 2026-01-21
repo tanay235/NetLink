@@ -17,3 +17,6 @@ content-type: application/json
   "email": "tanay@gmail.com",
   "password": "123456"
 }
+
+###
+GET http://localhost:9080/get_user_and_profile?token=ebe4c815246bd4254a6d563e9827608e00711da8b87854d6cf1494c582748cf9941681dc5b5c5999af6bb903025009953f60d74a716ffb6672d68607159f8157 HTTP/1.1

@@ -80,3 +80,105 @@ export const uploadProfilePicture = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }
+
+export const getUserAndProfile = async (req, res) => {
+    try {
+        // Accept token from multiple sources: query params (GET), body (POST), or headers
+        let token = req.query.token || req.body?.token || req.headers['x-auth-token'] || req.headers['authorization'];
+        
+        // If token is in Authorization header as "Bearer TOKEN", extract it
+        if (token && token.startsWith('Bearer ')) {
+            token = token.substring(7);
+        }
+
+        if (!token) {
+            return res.status(400).json({ message: "Token is required" });
+        }
+
+        // Clean token (remove quotes if present and trim whitespace)
+        const cleanToken = typeof token === 'string' 
+            ? token.trim().replace(/^["']|["']$/g, '') 
+            : String(token).trim().replace(/^["']|["']$/g, '');
+
+        if (!cleanToken) {
+            return res.status(400).json({ message: "Token is required" });
+        }
+
+        const user = await User.findOne({ token: cleanToken });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const userProfile = await Profile.findOne({ userId: user._id })
+            .populate('userId', 'name email username profilePicture');
+
+        if (!userProfile) {
+            return res.status(404).json({ message: "Profile not found" });
+        }
+
+        // Return response in the format shown in the image: { "profile": {...} }
+        return res.json({ profile: userProfile });
+
+    }catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+
+export const updateUserProfile = async (req, res) => {
+    try {
+        const { token, ...newUserData } = req.body;
+
+        if (!token) {
+            return res.status(400).json({ message: "Token is required" });
+        }
+
+        // Clean token (remove quotes if present)
+        const cleanToken = token.trim().replace(/^"|"$/g, '');
+
+        const user = await User.findOne({ token: cleanToken });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Check if username or email already exists for a different user
+        const { username, email } = newUserData;
+
+        if (username || email) {
+            const existingUser = await User.findOne({ 
+                $or: [
+                    ...(username ? [{ username }] : []),
+                    ...(email ? [{ email }] : [])
+                ],
+                _id: { $ne: user._id }
+            });
+
+            if (existingUser) {
+                return res.status(400).json({ message: "Username or email already exists" });
+            }
+        }
+
+        // Update user fields (exclude password and token from direct update)
+        const { password, ...safeUpdateData } = newUserData;
+        Object.assign(user, safeUpdateData);
+
+        await user.save();
+
+        return res.json({ message: "User Updated" });
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+
+
+export const updateProfileData = async (req,res) =>{
+    try {
+
+    }catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+
+
+}
