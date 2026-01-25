@@ -121,6 +121,7 @@ export const getUserAndProfile = async (req, res) => {
     try {
         // Accept token from multiple sources: query params (GET), body (POST), or headers
         let token = req.query.token || req.body?.token || req.headers['x-auth-token'] || req.headers['authorization'];
+
         
         // If token is in Authorization header as "Bearer TOKEN", extract it
         if (token && token.startsWith('Bearer ')) {
