@@ -39,7 +39,7 @@ export const registerUser = createAsyncThunk(
                 username: user.username,
                 password: user.password,
                 email: user.email,
-                name: user.email,
+                name: user.name,
             })
 
         }catch(err){
@@ -62,6 +62,21 @@ export const getAboutUser = createAsyncThunk(
             
             return thunkAPI.fulfillWithValue(response.data)
             
+
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.response.data)
+        }
+    }
+)
+
+export const getAllUsers = createAsyncThunk(
+    "user/getAllUsers",
+    async (_, thunkAPI) => {
+        try { 
+
+            const response = await clientServer.get("/user/get_all_users")
+
+            return thunkAPI.fulfillWithValue(response.data)
 
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response.data)

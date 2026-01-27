@@ -1,4 +1,4 @@
-import { getAboutUser } from '@/config/redux/action/authAction';
+import { getAboutUser, getAllUsers } from '@/config/redux/action/authAction';
 import { getAllPosts } from '@/config/redux/action/postAction';
 import UserLayout from '@/layout/UserLayout';
 import { useRouter } from 'next/router'
@@ -15,29 +15,25 @@ export default function Dashboard() {
 
     const authState = useSelector((state) => state.auth)
 
-    const [isTokenThere, setIsTokenThere] = useState(false)
+
 
     useEffect(() => {
-        if (localStorage.getItem('token') === null) {
-            router.push("/login")
-        }
-
-        setIsTokenThere(true)
-    })
-
-    useEffect(() => {
-        if (isTokenThere) {
+        if (authState.isTokenThere) {
             dispatch(getAllPosts())
             dispatch(getAboutUser({ token: localStorage.getItem('token') }))
         }
 
-    }, [isTokenThere])
+        if (!authState.all_profiles_fetched) {
+            dispatch(getAllUsers());
+        }
+
+    }, [authState.isTokenThere])
 
     return (
         <UserLayout>
             <DashboardLayout>
                 <div>
-                    <h1>Dashboard</h1>
+                    <h1>My Connections</h1>
                 </div>
             </DashboardLayout>
 
