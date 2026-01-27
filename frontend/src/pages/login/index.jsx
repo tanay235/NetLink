@@ -29,14 +29,14 @@ function LoginComponent() {
   }, [authState.loggedIn])
 
   useEffect(() => {
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem("token")) {
       router.push("/dashboard")
     }
-  },[])
+  }, [])
 
   useEffect(() => {
     dispatch(emptyMessage())
-  },[userLoginMethod])
+  }, [userLoginMethod])
 
   const handleRegister = () => {
     console.log("registering");
@@ -44,7 +44,7 @@ function LoginComponent() {
   }
 
   const handleLogin = () => {
-    dispatch(loginUser({email,password}))
+    dispatch(loginUser({ email, password }))
     console.log("login..")
   }
 
@@ -86,13 +86,13 @@ function LoginComponent() {
 
           <div className={styles.cardContainer__right}>
 
-              {userLoginMethod ? <p>Don't Have an Account? </p> : <p>Already Have an Account ?</p>}
-              <div onClick={() => {
-                setuserLoginMethod(!userLoginMethod)
-              }} style={{color : "black" , textAlign : "center"}} className={styles.buttonWithOutline}>
-                <p>{userLoginMethod ? "Sign Up" : "Sign In"}</p>
-              </div>
+            {userLoginMethod ? <p>Don't Have an Account? </p> : <p>Already Have an Account ?</p>}
+            <div onClick={() => {
+              setuserLoginMethod(!userLoginMethod)
+            }} style={{ color: "black", textAlign: "center" }} className={styles.buttonWithOutline}>
+              <p>{userLoginMethod ? "Sign Up" : "Sign In"}</p>
             </div>
+          </div>
 
         </div>
       </div>

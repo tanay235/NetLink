@@ -6,7 +6,7 @@ import { getAboutUser, getAllUsers, loginUser, registerUser } from "../../action
 
 
 const initialState = {
-    user: [],
+    user: undefined,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -65,7 +65,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = true;
-            state.loggedIn = true;
+            state.loggedIn = false;
             state.message = {
                 message:"Registration Successful, Please login"
             }

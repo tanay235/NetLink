@@ -11,14 +11,15 @@ export default function DashboardLayout({ children }) {
     const dispatch = useDispatch();
     const authState = useSelector((state) => state.auth);
 
-    
-        useEffect(() => {
-            if (localStorage.getItem('token') === null) {
-                router.push("/login")
-            }
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token === null) {
+            router.push("/login")
+        } else {
             dispatch(setTokenIsThere())
-        })
+        }
+    }, [])
 
     return (
         <div>
