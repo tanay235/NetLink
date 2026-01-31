@@ -6,13 +6,20 @@
 .createPostContainer{
     display: flex;
     height: 10svh;
-    width: 70%;
+    width: 100%;
     padding-inline: 0.8rem;
     gap: 1.3rem;
     align-items: center;
     position: relative;
     background-color: rgb(255, 246, 246);
     border-radius: 20px;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    max-width: 80%;
 }
 
 .uploadButton{
@@ -55,4 +62,37 @@
     padding-inline: 1.5rem;
     padding-block: 0.8rem;
     outline: none;
+}
+
+.singleCard{
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 1px solid rgb(179,179,179);
+}
+
+.singleCard__profileContainer{
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    padding-right: 3.4rem;
+}
+
+.singleCard__profileContainer > img{
+    width: 10%;
+    border-radius: 50%;
+}
+
+.singleCard__image{
+    width: 100%;
+    padding-top: 0.6rem;
+    height: fit-content;
+    overflow: hidden;
+}
+
+.singleCard__image > img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 20px;
 }
